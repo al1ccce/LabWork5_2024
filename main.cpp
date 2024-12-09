@@ -5,8 +5,9 @@ void addCustomer(MarketPlace& market) {
     int id, balance;
     cout << "id: "; cin >> id;
     cout << "баланс: "; cin >> balance;
-    market.add_customer(Customer(id, balance));
-    customerToFile(Customer(id, balance));
+    if(market.add_customer(Customer(id, balance))){
+        customerToFile(Customer(id, balance));
+    }
 }
 
 void addSeller(MarketPlace& market) {
@@ -14,8 +15,9 @@ void addSeller(MarketPlace& market) {
     int id;
     cout << "имя: "; cin >> name;
     cout << "id: "; cin >> id;
-    market.add_seller(Seller(name, id));
-    sellerToFile(Seller(name, id));
+    if(market.add_seller(Seller(name, id))){
+        sellerToFile(Seller(name, id));
+    }
     
 }
 
@@ -30,7 +32,10 @@ void addProduct(MarketPlace& market) {
     cout << "количество: "; cin >> amount;
     cout << "id продавца: "; cin >> seller_id;
     cout << "id товара: "; cin >> id;
-    productToFile(Product(name, price, amount, seller_id, id));
+    if (market.add_product(Product(name, price, amount, seller_id, id))){
+        productToFile(Product(name, price, amount, seller_id, id));
+    }
+
 }
 
 void buyProduct(MarketPlace& market) {
@@ -41,7 +46,7 @@ void buyProduct(MarketPlace& market) {
     cout << "id покупателя: "; cin >> cid;
     cout << "id товара: "; cin >> id;
     cout << "количество: "; cin >> amount;
-    cout << "оплата 1 - наличными, 2 - картой, 3 - криптовалютой"; cin >> paywhat;
+    cout << "оплата 1 - наличными, 2 - картой, 3 - криптовалютой: "; cin >> paywhat;
     Payment* payment = nullptr;
     switch (paywhat) {
         case 1:
