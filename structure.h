@@ -84,31 +84,38 @@ public:
     unordered_map<int, Customer> customers;
     unordered_map<int, Product> products;
 
-    void add_customer(Customer customer) {
+    bool add_customer(Customer customer) {
         if (customers.find(customer.id) != customers.end()) {
             cout << "Такой идентификатор (id" << customer.id << ") уже есть, придумайте другой" << endl;
+            return false;
         } else {
             customers[customer.id] = customer;
+            return true;
         }
     }
 
-    void add_seller(Seller seller) {
+    bool add_seller(Seller seller) {
         if (sellers.find(seller.id) != sellers.end()) {
             cout << "Такой идентификатор (id" << seller.id << ") уже есть, придумайте другой" << endl;
+            return false;
         } else {
             sellers[seller.id] = seller;
+            return true;
         }
     }
 
-    void add_product(Product product) {
+    bool add_product(Product product) {
         if (products.find(product.id) != products.end()) {
             cout << "Такой идентификатор уже есть, придумайте другой" << endl;
+            return false;
         } else {
             if (sellers.find(product.seller_id) == sellers.end()) {
                 cout << "Продавца не существует на площадке" << endl;
+                return false;
             } else {
                 products[product.id] = product;
                 cout << "Товар " << product.name << ", (id" << product.id << ") добавлен на площадку" << endl;
+                return true;
             }
         }
     }
